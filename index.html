@@ -24,7 +24,7 @@
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "url": "https://alvee1994.github.io/portfolio/",
-  "dateModified": "2026-10-27",
+  "dateModified": "2026-11-07",
   "mainEntity": {
     "@type": "Person",
     "name": "Ahmed Alvee",
@@ -197,7 +197,8 @@
         <div class="org">Mesh Bio</div>
         <div class="org">Singapore health-tech company serving private healthcare providers. Its health screening workflow scored patient risk and built screening reports.</div>
         <ul>
-          <li>Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics, by choosing LLMs to turn messy input into schema-aligned output and building the pipeline from scratch as agentic workflows (LangGraph, Claude on Bedrock, Pydantic, ChromaDB); a human reviewer checked every file.</li>
+          <li>Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics, by choosing LLMs to turn messy input into schema-aligned output and building the pipeline from scratch as agentic workflows (LangGraph, Claude on Bedrock, Pydantic, ChromaDB); a human reviewer checked every finished file.</li>
+          <li>Improved from a first version with at least one wrong attribute in 70% of individual records to 99% of the data submitted to the live database, by giving the LLMs feedback through specific Pydantic error messages, parallel LangGraph stages under a supervisor agent, and customer-specific ChromaDB search. Built the workflow from start to finish in about 2 months.</li>
           <li>Developed guardrails for the AI pipeline: system prompting, a LangGraph supervisor agent framework and a configurable Pydantic validation layer, with strict submission criteria as a responsible AI control.</li>
           <li>Turned the first overseas customer into a lighthouse account that opened follow-on regional projects, by recommending a headless API-based workflow, cutting scope to meet the deadline, and leading 3 weeks of on-the-ground deployment.</li>
           <li>Built prototypes, proofs of concept and MVPs, ran pilots with teams in Indonesia before wide deployment, and extended the pipeline to run on premises as an MVP for a pilot with an Indonesian client.</li>
@@ -286,7 +287,7 @@
       <div class="when">Mesh Bio</div>
       <div>
         <h3>Lessons from using an LLM to clean up messy clinic data</h3>
-        <div class="org">LangGraph, Claude on Bedrock, Pydantic and ChromaDB took submission clean-up from about an hour to 6-10 minutes.</div>
+        <div class="org">LangGraph, Claude on Bedrock, Pydantic and ChromaDB took submission clean-up from about an hour to 6-10 minutes, and improved a first version with errors in 70% of records to 99% of data submitted.</div>
         <p><a href="writing/llm-lessons.html">Read</a></p>
       </div>
     </div>

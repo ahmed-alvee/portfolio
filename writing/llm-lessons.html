@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'">
 <title>Lessons from using an LLM to clean up messy clinic data | Ahmed Alvee</title>
-<meta name="description" content="I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics.">
+<meta name="description" content="I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics. My first version had at least one wrong attribute in 70% of individual records. The final pipeline got 99% of the data submitted to our live database.">
 <meta name="author" content="Ahmed Alvee">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://alvee1994.github.io/portfolio/writing/llm-lessons.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lessons from using an LLM to clean up messy clinic data">
-<meta property="og:description" content="I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics.">
+<meta property="og:description" content="I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics. My first version had at least one wrong attribute in 70% of individual records. The final pipeline got 99% of the data submitted to our live database.">
 <meta property="og:url" content="https://alvee1994.github.io/portfolio/writing/llm-lessons.html">
 <meta property="og:image" content="https://alvee1994.github.io/portfolio/assets/ahmed-alvee.jpg">
 <meta name="twitter:card" content="summary">
@@ -24,15 +24,18 @@
 <p class="crumb"><a href="../#writing">Writing</a></p>
 <h1>Lessons from using an LLM to clean up messy clinic data</h1>
 <p><em>Written from work I did in 2025, using Claude through Amazon Bedrock.</em></p>
-<p class="result">I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics.</p>
+<p class="result">I built an AI clean-up pipeline with LangGraph, Claude on Amazon Bedrock, Pydantic and ChromaDB. Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics. My first version had at least one wrong attribute in 70% of individual records. The final pipeline got 99% of the data submitted to our live database.</p>
 <h2>The problem</h2>
 <p>Mesh Bio is a Singapore health-tech company working with private healthcare providers. Clinics sent patient submissions for its health screening workflow as CSV and Excel files. Every vendor used its own column names, and each customer had its own list of health screening package names. A person cleaned each submission by hand, which took about an hour.</p>
 <p>I had to get an LLM to turn those files into clean, structured output a reviewer could trust. The model had to follow instructions closely, stay within cost, and fit the work inside the context window of the models available at the time.</p>
+<h2>The first version failed</h2>
+<p>These were live medical records, so my rule was: better to fail early than be sorry later. The pipeline had to fail gracefully before it put in wrong or half-baked data.</p>
+<p>My first version gave the LLM only a system prompt and the file paths. 70% of individual records had at least one attribute wrong. The root cause was that the LLM got no feedback on whether its output was correct. Putting a human in that loop would have defeated the purpose of an agentic workflow, so the feedback had to come from the pipeline itself.</p>
 <h2>Six lessons</h2>
 <p><strong>1. Start with the raw file and read what the model does.</strong> I began with the file and the expected output in the system prompt and the first message, and watched the patterns. Testing across models showed that Claude Sonnet followed instructions best, so I used it.</p>
 <p><strong>2. If the model writes the same script every turn, make it a tool.</strong> Given a CSV or an Excel file, the model wrote a Python script from scratch each time. I turned those scripts into tools: look at the data, map column names, count records, write a new output CSV and track progress. The model then spent its effort on transforming the data.</p>
-<p><strong>3. Search for reference data.</strong> The list of package names was long and different for each customer. I gave the model a ChromaDB vector search to find the closest match. A vendor might send "Silver Male" when the exact name was "Silver Package Male". If the vendor sent only "Silver Package", the model used the patient's gender to choose the Male or the Female package.</p>
-<p><strong>4. Work in steps, because of the context limit, context rot and cost.</strong> The context window of the models at the time was smaller than it is now. Feeding the whole file at once also cost more, and the model got worse as the context grew. The LangGraph flow moved in steps:</p>
+<p><strong>3. Search for reference data.</strong> The list of package names was long and different for each customer. I gave the model a ChromaDB vector search to find the closest match. Each customer had about 100 accepted values, out of 500+ across customers, and giving the model all of them would only work with a large context window. So at the start of each run I loaded only that customer's values into ChromaDB, with Cohere embeddings. The model searched for the closest matches and checked whether the input value was on the accepted list. A vendor might send "Silver Male" when the exact name was "Silver Package Male". If the vendor sent only "Silver Package", the model used the patient's gender to choose the Male or the Female package.</p>
+<p><strong>4. Work in steps, because of the context limit, context rot and cost.</strong> The context window of the models at the time was smaller than it is now. Feeding the whole file at once also cost more, and the model got worse as the context grew. LangGraph stages divided the data and spawned multiple LLMs to work in parallel, with a supervisor agent that had visibility over them all. The flow moved in steps:</p>
 <pre>extract the required fields (test name, value, units, abnormal flag)
   -&gt; structure them into a JSON schema
   -&gt; fetch parameter names through our API
@@ -41,11 +44,11 @@
   -&gt; read the feedback and correct
   -&gt; validate again
   -&gt; write the cleaned file</pre>
-<p><strong>5. Check the output outside the model.</strong> The validation endpoint used Pydantic. It checked that patient identifiers were in capitals, that phone numbers had the country code separate from the number and were valid, and that emails were valid. One Pydantic model handled many records. In testing and on live submissions, when the first row passed, the rows after it passed the same checks. The model processed 10 to 20 records at a time. I reached this flow after many tests.</p>
-<p><strong>6. Keep a person in the loop.</strong> The model did not submit anything. It produced a cleaned file, and a human reviewer checked it and submitted it.</p>
+<p><strong>5. Check the output outside the model.</strong> The validation endpoint used Pydantic, which also gave the model the JSON schema for its tools. Its error messages were very specific. If only the phone number was wrong, the error pointed to the phone number and said why, and the model corrected only that data point. It checked that patient identifiers were in capitals, that phone numbers had the country code separate from the number and were valid, and that emails were valid. One Pydantic model handled many records. In testing and on live submissions, when the first row passed, the rows after it passed the same checks. The model processed 10 to 20 records at a time. I reached this flow after many tests.</p>
+<p><strong>6. Keep a person in the loop.</strong> The model did not submit anything. It produced a cleaned file, and a human reviewer checked each finished file and submitted it.</p>
 <p>I also built and tested a public endpoint that connected vendors to our LLM, in October and November 2025. I did not release it: it needed more testing, and its forecast cost was a factor.</p>
 <h2>The outcome</h2>
-<p>Per-submission time went from about 1 hour to 6-10 minutes, including human review, for 30+ clinics. A reviewer checked every output.</p>
+<p>Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics. From a first version with at least one wrong attribute in 70% of individual records, the final pipeline got 99% of the data submitted to our live database. The other 1% was incomplete data from the customer or data we could not transform into a complete record. Building the workflow from start to finish took about 2 months.</p>
 <nav class="more" aria-label="More writing">
 <span>More from Mesh Bio</span>
 <a href="pipeline.html">From 3-5 days to under a day: onboarding a new lab and clinic combination</a>

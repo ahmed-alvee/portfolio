@@ -7,6 +7,7 @@ This page has an AI agent ("Ask my agent") that answers questions about Ahmed's 
 ## Results
 
 - Data clean-up per submission: improved from about 1 hour to 6 to 10 minutes, with an AI pipeline (LangGraph, Claude via Amazon Bedrock) for 30+ clinics, including human review.
+- LLM pipeline accuracy: improved from a first version with at least one wrong attribute in 70% of individual records to 99% of the data submitted to the live database, using Pydantic error feedback, parallel LangGraph stages under a supervisor agent, and customer-specific ChromaDB search. Building the workflow from start to finish took about 2 months.
 - Onboarding a new lab and clinic combination: improved from 3-5 days to under 1 day, with a configurable AWS pipeline.
 
 ## Experience
