@@ -34,7 +34,7 @@ This page has an AI agent ("Ask my agent") that answers questions about Ahmed's 
 
 ## Skills
 
-- Cloud: AWS (Lambda, Step Functions, SQS, SNS, EventBridge), Terraform, Docker
+- Cloud: AWS (Lambda, Step Functions orchestration, SQS, SNS, EventBridge), Terraform, Docker
 - AI and LLM: Generative AI (LLMs, VLMs), AI agents, agentic workflows, RAG and vector search, Model Context Protocol (MCP), Amazon Bedrock, LangGraph, LangChain, LangSmith, Claude, OpenAI, Gemini, OpenRouter, vLLM, Hugging Face, Pydantic, ChromaDB, guardrails, model evaluation, n8n, Claude Code, Codex, Cursor
 - Integration: REST APIs, webhooks, OAuth, OIDC, Postman, Swagger, HL7, MLLP, DICOM, Microsoft Graph API
 - Languages and tools: Python, SQL, C++, MongoDB, Redis, Git, Linux, Qt, ROS
