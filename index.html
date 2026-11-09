@@ -202,13 +202,13 @@
         <ul>
           <li>Per-submission time improved from about 1 hour to 6-10 minutes, including human review, for 30+ clinics, by choosing LLMs to turn messy input into schema-aligned output and building the pipeline from scratch as agentic workflows (LangGraph, Claude on Bedrock, Pydantic, ChromaDB); a human reviewer checked every finished file.</li>
           <li>Improved from a first version with at least one wrong attribute in 70% of individual records to 99% of the data submitted to the live database, by giving the LLMs feedback through specific Pydantic error messages, parallel LangGraph stages under a supervisor agent, and customer-specific ChromaDB search. Built the workflow from start to finish in about 2 months.</li>
-          <li>Developed guardrails for the AI pipeline: system prompting, a LangGraph supervisor agent framework and a configurable Pydantic validation layer, with strict submission criteria as a responsible AI control.</li>
+          <li>Built guardrails for the AI pipeline: system prompting, a LangGraph supervisor agent framework and a configurable Pydantic validation layer, with strict submission criteria as a responsible AI control.</li>
           <li>Turned the first overseas customer into a lighthouse account that opened follow-on regional projects, by recommending a headless API-based workflow, cutting scope to meet the deadline, and leading 3 weeks of on-the-ground deployment.</li>
           <li>Developed prototypes, proofs of concept and MVPs, ran pilots with teams in Indonesia before wide deployment, and extended the pipeline to run on premises as an MVP for a pilot with an Indonesian client.</li>
           <li>Chose a vision language model (VLM) for a medical identification pilot with a major healthcare provider, and deployed, tested and evaluated frontier and open-weight models (OpenRouter, vLLM, Hugging Face, Amazon Bedrock).</li>
           <li>Onboarding time improved from 3-5 days to under 1 day for each new lab and clinic combination, by redesigning a hardcoded Lambda per combination into a config-driven AWS pipeline (Lambda, SNS, SQS, EventBridge Pipes, Step Functions, HL7 integration) that handled about 10,000 records an hour.</li>
           <li>Defined non-functional requirements with technical and non-technical teams, drew workflow and data-flow diagrams, and designed the API for embedding Mesh Bio's platform in a CMS used by a third of Singapore's private healthcare providers.</li>
-          <li>Joined technical sales calls to map customer tech stacks and integration points, and owned the integration APIs, built ahead of demand with Postman documentation, and advised customer stakeholders on integration and rollout.</li>
+          <li>Owned the integration APIs, built ahead of demand with Postman documentation; mapped customer tech stacks on technical sales calls and advised customer stakeholders on integration and rollout.</li>
           <li>Promoted to Solutions Architect; built and led a team of 3 solutions engineers, hiring, coaching, training and supervising them as they took over and expanded the APIs and pipelines.</li>
         </ul>
       </div>
@@ -221,8 +221,7 @@
         <div class="org">MBA consulting project for Truvalu, a Netherlands-based impact investor supporting agri-food SMEs in emerging markets.</div>
         <ul>
           <li>Defined the problem with the client (AI discovery), then designed a 5-stage AI monitoring workflow with a 5-person MBA team, projected to improve monitoring time for an impact investor by about 45%.</li>
-          <li>Engineered and demoed AI tools and agents (Gemini, Claude, Tally.so) as proofs of concept and an MVP spanning all 5 workflow stages, from data clean-up to reporting.</li>
-          <li>Presented AI recommendations to client leadership at Truvalu.</li>
+          <li>Engineered and demoed AI tools and agents (Gemini, Claude, Tally.so) as proofs of concept and an MVP spanning all 5 workflow stages, from data clean-up to reporting, and pitched the recommendations to Truvalu leadership.</li>
         </ul>
       </div>
     </div>
@@ -243,8 +242,8 @@
         <div class="org">University research lab building robotics and wearable systems, working with teams of research assistants and PhD students.</div>
         <ul>
           <li>Owned locomotion code for a 12+ robot mapping system, covering 2 floors and 5 rooms in under 6 minutes.</li>
-          <li>Developed an ML pipeline (Python, ROS, StretchSense) recognizing 7 hand gestures to command unmanned vehicles.</li>
-          <li>Contributed C++ and hardware engineering to 2 more robotics builds: a legged mapping robot and a custom PCB for 3D-knitted wearables.</li>
+          <li>Built an ML pipeline (Python, ROS, StretchSense) recognizing 7 hand gestures to command unmanned vehicles.</li>
+          <li>Designed a custom Bluetooth PCB for a 3D-knitted knee-monitoring wearable (published, Advanced Healthcare Materials 2023) and engineered C++ for a legged mapping robot.</li>
         </ul>
         <p><a href="https://www.youtube.com/watch?v=qfH4ocXLslI" rel="noopener" target="_blank">Watch the robot navigation</a></p>
         <p>Co-authored publications (I designed the custom circuit board that reads the knitted sensors and streams data over Bluetooth):</p>
