@@ -2,7 +2,7 @@
 
 **What we build:** a public portfolio page on GitHub with an AI agent built in. The agent answers visitors' questions about you, on your behalf.
 
-**Example:** [alvee1994.github.io/portfolio](https://alvee1994.github.io/portfolio). Yours will look like this, with your own agent in the corner.
+**Example:** [ahmed-alvee.github.io/portfolio](https://ahmed-alvee.github.io/portfolio). Yours will look like this, with your own agent in the corner.
 
 **Why:** we learn to build an agent together, and you leave with your own portfolio you can share anywhere on the internet.
 
@@ -148,7 +148,7 @@ Keep this open. We fill in the rest together.
 
 **Start here.** Open a terminal in the folder where you keep projects and run `claude` or `codex`, or open the folder in Antigravity IDE. Paste:
 
-> Here is a template repo: https://github.com/alvee1994/portfolio-template. Create my own public repo called portfolio from it and pull it to this laptop. Then read its README and help me edit it with my prompt.txt, one step at a time, and push my changes.
+> Here is a template repo: https://github.com/ahmed-alvee/portfolio-template. Create my own public repo called portfolio from it and pull it to this laptop. Then read its README and help me edit it with my prompt.txt, one step at a time, and push my changes.
 
 **Talk to your assistant in plain English.** Say what you want, check what it proposes, approve.
 

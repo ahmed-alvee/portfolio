@@ -2,7 +2,7 @@
 
 A portfolio page with a chat box. Visitors ask questions and an AI agent answers from your CV. A Cloudflare Worker sits in between, so your API key never reaches the browser.
 
-Live example: https://alvee1994.github.io/portfolio/
+Live example: https://ahmed-alvee.github.io/portfolio/
 
 ```
 Visitor -> GitHub Pages (this page) -> Cloudflare Worker -> model (Claude API, OpenRouter, or a Claude Managed Agent)

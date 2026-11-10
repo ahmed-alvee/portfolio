@@ -23,9 +23,9 @@ This page has an AI agent ("Ask my agent") that answers questions about Ahmed's 
 
 ## Writing
 
-- [From 3-5 days to under a day: onboarding a new lab and clinic combination](https://alvee1994.github.io/portfolio/writing/pipeline.html)
-- [From one customer's deadline to an API-first platform](https://alvee1994.github.io/portfolio/writing/apis.html)
-- [Lessons from using an LLM to clean up messy clinic data](https://alvee1994.github.io/portfolio/writing/llm-lessons.html)
+- [From 3-5 days to under a day: onboarding a new lab and clinic combination](https://ahmed-alvee.github.io/portfolio/writing/pipeline.html)
+- [From one customer's deadline to an API-first platform](https://ahmed-alvee.github.io/portfolio/writing/apis.html)
+- [Lessons from using an LLM to clean up messy clinic data](https://ahmed-alvee.github.io/portfolio/writing/llm-lessons.html)
 
 ## Education
 
@@ -42,8 +42,8 @@ This page has an AI agent ("Ask my agent") that answers questions about Ahmed's 
 
 ## Links
 
-- [Portfolio](https://alvee1994.github.io/portfolio/)
+- [Portfolio](https://ahmed-alvee.github.io/portfolio/)
 - [LinkedIn](https://www.linkedin.com/in/alveeahmed)
-- [GitHub](https://github.com/alvee1994)
-- [CV (PDF)](https://alvee1994.github.io/portfolio/assets/Ahmed_Alvee_resume.pdf)
+- [GitHub](https://github.com/ahmed-alvee)
+- [CV (PDF)](https://ahmed-alvee.github.io/portfolio/assets/Ahmed_Alvee_resume.pdf)
 - Email: ahmedalv94@gmail.com
