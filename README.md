@@ -116,7 +116,7 @@ Repo Settings > Pages > Source: Deploy from a branch > `main` / `(root)` > Save.
 - Only your page's origin can call the Worker from a browser. Other clients can fake the origin, so this is a speed bump, not a lock.
 - Turnstile stops bots. The Worker refuses Cloudflare's test secret unless the page runs on localhost.
 - After the bot check the Worker hands out a signed ticket that expires after 2 hours. Without it, no model call happens.
-- Rate limits per visitor IP, set in each `wrangler.toml`: 5 new chats a minute, 20 messages a minute (Managed Agent: 120, because the page polls).
+- Rate limits per visitor IP, set in each `wrangler.toml`: 5 new chats a minute, 6 messages a minute on the OpenRouter Worker (Claude Messages: 20. Managed Agent: 120, because the page polls).
 - The chat Workers accept only plain text, at most 1,000 characters a message and the last 20 messages. Nobody can stretch your bill with one huge request.
 - The page inserts text with `textContent`, so nothing the agent or a visitor writes can run as HTML. A Content-Security-Policy in `index.html` allows only your own scripts and Turnstile.
 - A chat (and its cost) starts only when a visitor opens it.
